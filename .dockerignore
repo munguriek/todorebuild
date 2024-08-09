@@ -1,0 +1,23 @@
+.env
+
+docker run --name todorebuild-db -p 5432:5432 -e POSTGRES_USER=todouser -e POSTGRES_PASSWORD=Awesome@2022 --network todorebuild-network -d postgres
+
+docker exec -it todorebuild-db bash
+
+psql -U todouser
+
+CREATE DATABASE tododb OWNER todouser;
+
+
+docker run --env-file .env  --name todorebuild-app -p 8000:8000 --network todorebuild-network -d todorebuild
+
+
+docker exec -it todorebuild-app python manage.py migrate
+
+docker rm todorebuild-db --force
+docker rm todorebuild-app --force
+
+docker tag munguriek/todorebuild
+
+docker push munguriek/todorebuild
+
