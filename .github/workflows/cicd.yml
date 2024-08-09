@@ -1,4 +1,4 @@
-name: Build and share Docker Image to Docker Hub
+name: Bootcamp Demo
 
 on:
   push:
@@ -27,4 +27,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: munguriek/torebuild:latest
+          tags: munguriek/todobootcamp:latest
